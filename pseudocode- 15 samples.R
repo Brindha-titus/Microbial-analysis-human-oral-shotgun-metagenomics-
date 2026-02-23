@@ -30,7 +30,7 @@ setwd(input_dir)
 
 ##BUILD METADATA FROM ENA TSV
 #TSV file (ENA run table) 
-tsv_file <- file.path(input_dir, "ena_sra-run_20260127-1506.tsv")
+tsv_file <- file.path(input_dir, "ena_sra-run_xxxxxxxxxx.tsv")
 
 meta0 <- read.delim(tsv_file, stringsAsFactors = FALSE)
 
@@ -793,9 +793,8 @@ library(dplyr)
 library(tidyr)
 library(ggplot2)
 
-## -----------------------------
 ## 1) Paths (EDIT)
-## -----------------------------
+
 input_dir <- "/Users/brindha/Documents/R- microbiome analysis/input"
 out_dir   <- "/Users/brindha/Documents/R- microbiome analysis/output"
 dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
@@ -805,16 +804,16 @@ results_path   <- "all_results.tsv"
 abundance_path <- "genus_relative_abundance_saliva_filtered.csv"
 metadata_path  <- "per_sample_metrics_saliva.csv"
 
-## -----------------------------
+
+
 ## 2) Load files
-## -----------------------------
+
 res  <- read_tsv(results_path, show_col_types = FALSE)
 abun <- read_csv(abundance_path, show_col_types = FALSE)
 meta <- read_csv(metadata_path, show_col_types = FALSE)
 
-## -----------------------------
 ## 3) Basic cleaning (not strict)
-## -----------------------------
+
 meta <- meta %>%
   rename_with(tolower) %>%
   mutate(
@@ -830,9 +829,9 @@ if (!("genus" %in% colnames(abun))) {
   stop("Abundance file must contain a column named 'genus'.")
 }
 
-## -----------------------------
+
 ## 4) Extract significant genera (periodontitis-associated)
-## -----------------------------
+
 sig <- res %>%
   filter(
     model == "abundance",
